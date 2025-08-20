@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Java Rules"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        PMD Ruleset for Java static analysis
+    </description>
+
+    <!--
+        PMD analysis can be run locally with a command like this:
+        `mvn org.apache.maven.plugins:maven-pmd-plugin:3.27.0:pmd '-Drulesets=.config/pmd-ruleset.xml'`
+        Results will be output to `target/reports/pmd.html`
+    -->
+
+    <!--
+        The lists of rules provided with PMD are here:
+        https://pmd.github.io/pmd/pmd_rules_java.html
+
+        Instructions for configuring the rules in use
+        can be found here:
+        https://pmd.github.io/pmd/pmd_userdocs_making_rulesets.html
+    -->
+
+    <!--
+        All files are included by default, the following includes 
+        only code under src/main/java
+    -->
+    <exclude-pattern>.*</exclude-pattern>
+    <include-pattern>.*/src/main/java/.*</include-pattern>
+
+    <!-- Rule config -->
+    <!-- 
+        Start with bestpractices & errorprone and 
+        tweak from there
+    -->
+
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="OneDeclarationPerLine" />
+
+        <!-- Guard statements shouldn't be required for slf4j -->
+        <exclude name="GuardLogStatement" />
+    </rule>
+
+    <rule ref="category/java/errorprone.xml" />
+    <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition">
+        <properties>
+            <property name="ignoreMagicNumbers" value="-1,0,1" />
+            <property name="ignoreExpressions" value="true" />
+        </properties>
+    </rule>
+
+</ruleset>
