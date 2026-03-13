@@ -45,6 +45,8 @@
 
     <rule ref="category/java/errorprone.xml" >
         <exclude name="MissingSerialVersionUID" />
+        <exclude name="ReplaceJavaUtilDate" />
+        <exclude name="ReplaceJavaUtilCalendar" />
     </rule>
     <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition">
         <properties>
